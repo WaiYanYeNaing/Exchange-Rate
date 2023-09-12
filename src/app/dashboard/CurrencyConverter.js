@@ -21,7 +21,7 @@ const CurrencyConverter = ({
     <div className="w-full sm:w-6/12 md:w-7/12">
       <div className="flex justify-center items-center max-w-full h-[380px] p-6 border rounded-lg shadow bg-gray-800 border-gray-700">
         <div className="flex flex-col space-y-3 lg:space-y-10">
-          <h5 className="md:text-xl lg:text-2xl mb-2 font-bold tracking-tight text-white">
+          <h5 className="md:text-xl lg:text-[1.3rem] mb-2 font-bold tracking-tight text-white">
             {fromCurrency} {currencies[fromCurrency]} to {toCurrency}{" "}
             {currencies[toCurrency]}
           </h5>

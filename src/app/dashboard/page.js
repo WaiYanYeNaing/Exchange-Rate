@@ -129,7 +129,7 @@ const CurrencyExchange = () => {
     fetchCurrencyList();
     setTimeout(() => {
       fetchLiveRates();
-    }, 2000);
+    }, 2500);
   }, []);
 
   useEffect(() => {
@@ -157,7 +157,7 @@ const CurrencyExchange = () => {
 
     setTimeout(async () => {
       fetchExchangeRate();
-    }, 1000);
+    }, 1500);
   }, [fromCurrency, toCurrency, selectedDate]);
 
   const handleFromCurrencyChange = (e) => {
