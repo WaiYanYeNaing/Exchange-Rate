@@ -1,0 +1,77 @@
+/* CurrencyExchange.css */
+
+.dropdown {
+  position: relative;
+  width: 150px; /* Adjust the width as needed */
+}
+
+.select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.select span {
+  flex-grow: 1;
+}
+
+.fa-chevron-left {
+  transition: transform 0.3s ease-in-out;
+}
+
+.fa-chevron-left.open {
+  transform: rotate(-90deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #000;
+  border: 1px solid #ccc;
+  border-top: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  max-height: 150px; /* Adjust the max height as needed */
+  overflow-y: auto;
+}
+
+.dropdown-menu.active {
+  display: block;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background-color: #2b2a2a;
+}
+.dropdown-menu-enter {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.dropdown-menu-enter-active {
+  max-height: 150px; /* Adjust the max height as needed */
+  opacity: 1;
+}
+
+.dropdown-menu-exit {
+  max-height: 150px; /* Adjust the max height as needed */
+  opacity: 1;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.dropdown-menu-exit-active {
+  max-height: 0;
+  opacity: 0;
+}
