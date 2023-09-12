@@ -1,7 +1,8 @@
 // CurrencyConverter.js
 import React from "react";
 import Image from "next/image";
-import { Datepicker } from "flowbite-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CurrencyConverter = ({
   fromCurrency,
@@ -14,12 +15,13 @@ const CurrencyConverter = ({
   handleToCurrencyChange,
   handleToCurrencyAmountChange,
   handleSelectedDateChange,
+  selectedDate
 }) => {
   return (
-    <div className="w-full sm:w-7/12">
+    <div className="w-full sm:w-6/12 md:w-7/12">
       <div className="flex justify-center items-center max-w-full h-[380px] p-6 border rounded-lg shadow bg-gray-800 border-gray-700">
         <div className="flex flex-col space-y-3 lg:space-y-10">
-          <h5 className="text-2xl mb-2 font-bold tracking-tight text-white">
+          <h5 className="md:text-xl lg:text-2xl mb-2 font-bold tracking-tight text-white">
             {fromCurrency} {currencies[fromCurrency]} to {toCurrency}{" "}
             {currencies[toCurrency]}
           </h5>
@@ -83,9 +85,11 @@ const CurrencyConverter = ({
             </div>
           </div>
           <div>
-            <Datepicker
-              className="w-52"
+            <DatePicker
+              selected={selectedDate}
+              className="w-52 border text-sm rounded-md block p-2.5 bg-gray-900 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               onChange={(date) => handleSelectedDateChange(date)}
+              maxDate={new Date()}
             />
           </div>
         </div>
