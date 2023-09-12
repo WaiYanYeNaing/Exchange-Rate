@@ -6,6 +6,7 @@ const ExchangeRateReverse = ({
   toCurrency,
   exchangeRate,
   exchangeValues,
+  handleReverseExchangeValueClick,
 }) => {
   const getCountry = (currencyCode) => {
     const lowercaseCode = currencyCode.toLowerCase();
@@ -38,11 +39,15 @@ const ExchangeRateReverse = ({
           </div>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between text-[13px]">
           <div className="w-5/12">
             {/* Display exchange values */}
             {exchangeValues.map((value) => (
-              <div key={value} className="font-normal text-gray-400">
+              <div
+                key={value}
+                className="font-normal text-gray-400 cursor-pointer my-1"
+                onClick={() => handleReverseExchangeValueClick(value)}
+              >
                 {value}
               </div>
             ))}
@@ -50,8 +55,8 @@ const ExchangeRateReverse = ({
           <div className="w-5/12">
             {/* Display converted exchange values */}
             {exchangeValues.map((value) => (
-              <div key={value} className="font-normal text-gray-400">
-                {(value / exchangeRate).toFixed(5)}
+              <div key={value} className="font-normal text-gray-400 my-1">
+                {parseFloat((value / exchangeRate).toFixed(5))}
               </div>
             ))}
           </div>
