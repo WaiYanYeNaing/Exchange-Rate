@@ -16,7 +16,7 @@ const ExchangeRateReverse = ({
 
   return (
     <div className="w-full md:w-1/2 lg:w-4/12 pl-0 md:pl-2 lg:px-2 mb-4">
-      <div className="max-w-full h-[380px] p-6 border rounded-lg shadow bg-gray-800 border-gray-700">
+      <div className="max-w-full h-[380px] p-6 border rounded-lg shadow bg-gray-800 border-gray-700 pl-10">
         <p className="mb-2 text-md font-bold tracking-tight text-white">
           Exchange Rate from {fromCurrency} to {toCurrency}
         </p>
