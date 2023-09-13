@@ -1,16 +1,19 @@
 "use client";
 
 import React, { useEffect, useState } from "react"; 
+import enURL from "@/app/api/environment";
 import CurrencyConverter from "./CurrencyConverter";
 import CurrencyHistory from "./CurrencyHistory";
 import ExchangeRate from "./ExchangeRate";
 import ExchangeRateReverse from "./ExchangeRateReverse";
 import LiveRates from "./LiveRates";
-import { BounceLoader } from "react-spinners";
-import DatePicker from "react-datepicker";
+import { BounceLoader } from "react-spinners"; 
 import "react-datepicker/dist/react-datepicker.css";
 
 const CurrencyExchange = () => {
+  const url = enURL.apiURL;
+  const apiKey = "9090e947b8f4f1cb464c441036e62085";
+
   const [currencies, setCurrencies] = useState({});
 
   const [liveRates, setLiveRates] = useState({});
@@ -89,9 +92,7 @@ const CurrencyExchange = () => {
   useEffect(() => {
     const fetchCurrencyList = async () => {
       try {
-        const response = await fetch(
-          "http://apilayer.net/list?access_key=9090e947b8f4f1cb464c441036e62085"
-        );
+        const response = await fetch(`${url}/list?access_key=${apiKey}`);
 
         if (response.status === 200) {
           const data = await response.json();
@@ -107,9 +108,7 @@ const CurrencyExchange = () => {
 
     const fetchLiveRates = async () => {
       try {
-        const response = await fetch(
-          "http://apilayer.net/live?access_key=9090e947b8f4f1cb464c441036e62085"
-        );
+        const response = await fetch(`${url}/live?access_key=${apiKey}`);
 
         if (response.status === 200) {
           const data = await response.json();
@@ -136,7 +135,7 @@ const CurrencyExchange = () => {
     const fetchExchangeRate = async () => {
       try {
         const response = await fetch(
-          `http://apilayer.net/historical?access_key=9090e947b8f4f1cb464c441036e62085&date=${
+          `${url}/historical?access_key=${apiKey}&date=${
             new Date(selectedDate).toISOString().split("T")[0]
           }&currencies=${toCurrency}&source=${fromCurrency}&format=1`
         );
