@@ -14,6 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const CurrencyExchange = () => {
   const url = enURL.apiURL;
   const apiKey = "9090e947b8f4f1cb464c441036e62085";
+  // const apiKey = "a395310ba3e25757db0d398ec9263b15"; 
 
   // State variables for currency exchange
   const [currencies, setCurrencies] = useState({});
@@ -22,7 +23,7 @@ const CurrencyExchange = () => {
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("MMK");
   const [fromCurrencyAmount, setFromCurrencyAmount] = useState(1);
-  const [toCurrencyAmount, setToCurrencyAmount] = useState(1);
+  const [toCurrencyAmount, setToCurrencyAmount] = useState("Loading...");
 
   // State variable for selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -96,13 +97,13 @@ const CurrencyExchange = () => {
     const fetchCurrencyList = async () => {
       try {
         const response = await fetch(`${url}/list?access_key=${apiKey}`);
-
-        if (response.status === 200) {
-          const data = await response.json();
+ 
+        const data = await response.json();
+        if (data.success) {
           setCurrencies(data.currencies);
           setCurrenciesLoading(false);
         } else {
-          console.error("Failed to fetch currency list from API");
+          alert(data.error.type);
         }
       } catch (error) {
         console.error("An error occurred while fetching currency list:", error);
@@ -113,12 +114,12 @@ const CurrencyExchange = () => {
       try {
         const response = await fetch(`${url}/live?access_key=${apiKey}`);
 
-        if (response.status === 200) {
-          const data = await response.json();
+        const data = await response.json();
+        if (data.success) {
           setLiveRates(data.quotes);
           setLiveRatesLoading(false);
         } else {
-          console.error("Failed to fetch live exchange rates from API");
+          alert(data.error.type);
         }
       } catch (error) {
         console.error(
@@ -144,14 +145,14 @@ const CurrencyExchange = () => {
           }&currencies=${toCurrency}&source=${fromCurrency}&format=1`
         );
 
-        if (response.status === 200) {
-          const data = await response.json();
+        const data = await response.json();
+        if (data.success) {
           const [currency, rate] = Object.entries(data.quotes)[0];
           setExchangeRate(rate);
           setToCurrencyAmount((fromCurrencyAmount * rate).toFixed(5));
           setExchangeRateLoading(false);
         } else {
-          console.error("Failed to fetch exchange rate from API");
+          alert(data.error.type);
         }
       } catch (error) {
         console.error("An error occurred while fetching exchange rate:", error);
@@ -171,6 +172,7 @@ const CurrencyExchange = () => {
   };
 
   const handleToCurrencyChange = (e) => {
+    setToCurrencyAmount("Loading...");
     setToCurrency(e.target.value);
   };
 
@@ -187,7 +189,7 @@ const CurrencyExchange = () => {
   };
 
   const handleSelectedDateChange = (date) => {
-    console.log(date);
+    setToCurrencyAmount("Loading...");
     setSelectedDate(date);
   };
 
@@ -202,6 +204,7 @@ const CurrencyExchange = () => {
   };
 
   const handleLiveRateClick = (value) => {
+    setToCurrencyAmount("Loading...");
     setToCurrency(value);
   };
 
