@@ -13,8 +13,8 @@ import "react-datepicker/dist/react-datepicker.css";
 // Main Component: CurrencyExchange
 const CurrencyExchange = () => {
   const url = enURL.apiURL;
-  const apiKey = "9090e947b8f4f1cb464c441036e62085";
-  // const apiKey = "a395310ba3e25757db0d398ec9263b15"; 
+  // const apiKey = "9090e947b8f4f1cb464c441036e62085";
+  const apiKey = "a395310ba3e25757db0d398ec9263b15"; 
 
   // State variables for currency exchange
   const [currencies, setCurrencies] = useState({});
