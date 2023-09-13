@@ -1,45 +1,46 @@
 "use client";
 
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import enURL from "@/app/api/environment";
 import CurrencyConverter from "./CurrencyConverter";
 import CurrencyHistory from "./CurrencyHistory";
 import ExchangeRate from "./ExchangeRate";
 import ExchangeRateReverse from "./ExchangeRateReverse";
 import LiveRates from "./LiveRates";
-import { BounceLoader } from "react-spinners"; 
+import { BounceLoader } from "react-spinners";
 import "react-datepicker/dist/react-datepicker.css";
 
+// Main Component: CurrencyExchange
 const CurrencyExchange = () => {
   const url = enURL.apiURL;
   const apiKey = "9090e947b8f4f1cb464c441036e62085";
 
+  // State variables for currency exchange
   const [currencies, setCurrencies] = useState({});
-
   const [liveRates, setLiveRates] = useState({});
-
   const [exchangeRate, setExchangeRate] = useState(1);
-
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("MMK");
-
   const [fromCurrencyAmount, setFromCurrencyAmount] = useState(1);
   const [toCurrencyAmount, setToCurrencyAmount] = useState(1);
-  
+
+  // State variable for selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // Loading
+  // Loading states for various data
   const [currenciesLoading, setCurrenciesLoading] = useState(true);
   const [exchangeRateLoading, setExchangeRateLoading] = useState(true);
   const [liveRatesLoading, setLiveRatesLoading] = useState(true);
 
-  // History Chart , currently using default data because Current API plan doesnt support to get range history 
+  // History Chart , currently using default data because Current API plan doesnt support to get range history
   const [history, setHistory] = useState([
     { x: new Date("2020-09-12"), y: 1000000 },
     { x: new Date("2021-09-12"), y: 1200000 },
     { x: new Date("2022-09-12"), y: 12870000 },
     { x: new Date("2023-09-12"), y: 13870808 },
   ]);
+
+  // Chart data for displaying historical currency conversion history
   const [chartData, setChartData] = useState({
     series: [{ name: "", data: history }],
     options: {
@@ -87,8 +88,10 @@ const CurrencyExchange = () => {
     },
   });
 
+  // Array of exchange values
   const exchangeValues = [1, 5, 10, 25, 50, 100, 500, 1000, 5000, 10000, 50000];
 
+  // Effect to fetch currency list and live rates on component mount
   useEffect(() => {
     const fetchCurrencyList = async () => {
       try {
@@ -97,7 +100,7 @@ const CurrencyExchange = () => {
         if (response.status === 200) {
           const data = await response.json();
           setCurrencies(data.currencies);
-          setCurrenciesLoading(false)
+          setCurrenciesLoading(false);
         } else {
           console.error("Failed to fetch currency list from API");
         }
@@ -131,6 +134,7 @@ const CurrencyExchange = () => {
     }, 2500);
   }, []);
 
+  // Effect to fetch exchange rate on component mount
   useEffect(() => {
     const fetchExchangeRate = async () => {
       try {
@@ -159,11 +163,11 @@ const CurrencyExchange = () => {
     }, 1500);
   }, [fromCurrency, toCurrency, selectedDate]);
 
+  // Event handler for fromCurrency change
   const handleFromCurrencyChange = (e) => {
     alert(
       "Access Restricted - Your current Subscription Plan does not support this API Function."
     );
-    // setFromCurrency(e.target.value);
   };
 
   const handleToCurrencyChange = (e) => {
@@ -183,12 +187,11 @@ const CurrencyExchange = () => {
   };
 
   const handleSelectedDateChange = (date) => {
-    console.log(date)
+    console.log(date);
     setSelectedDate(date);
   };
 
   const handleExchangeValueClick = (value) => {
-    // Update the fromCurrencyAmount when an exchange value is clicked
     setToCurrencyAmount(parseFloat((value * exchangeRate).toFixed(5)));
     setFromCurrencyAmount(value);
   };
